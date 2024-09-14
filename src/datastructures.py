@@ -31,7 +31,7 @@ class FamilyStructure:
             },
             {
                 "id": self._generateId(),
-                "first_name": "Joimmy",
+                "first_name": "Jimmy",
                 "last_name": self.last_name,
                 "age": 5,
                 "lucky_numbers": [1]
@@ -45,7 +45,7 @@ class FamilyStructure:
     def add_member(self, member):
         # fill this method and update the return
         member_added = {
-            "id": self._generateId(),
+            "id": member.get("id", self._generateId()),
             "first_name": member.get("first_name"),
             "last_name": self.last_name,
             "age": member.get("age"),
@@ -56,11 +56,12 @@ class FamilyStructure:
 
     def delete_member(self, id):
         # fill this method and update the return
-        for member in self._members:
-            if member["id"] == id:
-                self._members.remove(member)
-                return "This member was deleted"
-            return "No member found with id: "+id
+        for member in range(len(self._members)):
+            if self._members[member]["id"] == id:
+                self._members.pop(member)
+                return {"msg": "This member was deleted",
+                        "done": True}
+        return "No member found with id: "+str(id)
 
     def get_member(self, id):
         # fill this method and update the return
